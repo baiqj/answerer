@@ -1,9 +1,11 @@
 #!/usr/bin/env coffee
 
+PORT = process.env['PORT'] or 3000
+
 express = require 'express'
 
 express().get('/', (req, res) ->
   res.send('hello world.')
-).listen(3000)
+).listen(PORT)
 
-console.log 'App listening to 3000'
+console.log "Server listening on #{PORT}"
