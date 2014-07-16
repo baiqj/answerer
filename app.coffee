@@ -1,11 +1,19 @@
 #!/usr/bin/env coffee
 
-PORT = process.env['PORT'] or 3000
+server = require './server'
+database = require './database'
 
-express = require 'express'
+database.init()
 
-express().get('/', (req, res) ->
-  res.send('hello world.')
-).listen(PORT)
+.then server
 
-console.log "Server listening on #{PORT}"
+.catch (reason) ->
+  if Object::toString.call reason is '[Object Error]'
+    throw reason
+  console.error 'error', reason
+  process.exit(1)
+
+.progress (progress) ->
+  console.info progress
+
+.done()
